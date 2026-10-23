@@ -1,7 +1,8 @@
-import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { Shell } from './components/Shell';
 import { Hub } from './screens/Hub';
 import { Placeholder } from './screens/Placeholder';
+import { Setup } from './screens/Setup';
 
 function ProjectRoutes() {
   const { tab } = useParams();
@@ -15,11 +16,12 @@ function ProjectRoutes() {
 }
 
 export function App() {
+  const nav = useNavigate();
   return (
     <Shell>
       <Routes>
         <Route path="/" element={<Hub />} />
-        <Route path="/new/:step" element={<Placeholder title="New Project" phase={2} />} />
+        <Route path="/new/:step" element={<Setup onGenerate={() => nav('/generating')} />} />
         <Route path="/generating" element={<Placeholder title="Working On It" phase={3} />} />
         <Route path="/p/:id/:tab/*" element={<ProjectRoutes />} />
         <Route path="/p/:id" element={<Navigate to="brief" replace />} />

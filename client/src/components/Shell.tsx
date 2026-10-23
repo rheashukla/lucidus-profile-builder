@@ -97,8 +97,8 @@ export function Shell({ children }: { children: ReactNode }) {
         <NavItem icon="add_circle" label="New Project" on={creating} collapsed={isCollapsed}
           onClick={() => { close(); if (!creating) nav('/new/1'); }} />
         {creating && STEPS.map(([label], k) => (
-          <NavItem key={label} indent icon={`counter_${k + 1}`} label={label} on={setupStep === k + 1} collapsed={isCollapsed}
-            onClick={() => { close(); if (setupMatch && k + 1 < setupStep) nav(`/new/${k + 1}`); }} />
+          <NavItem key={label} indent icon={k + 1 < setupStep ? 'check_circle' : `counter_${k + 1}`} label={label} on={setupStep === k + 1} collapsed={isCollapsed}
+            done={k + 1 < setupStep} onClick={() => { close(); if (setupMatch) nav(`/new/${k + 1}`); }} />
         ))}
       </div>
       <div style={{ flex: 1 }} />
@@ -132,7 +132,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </>
         )}
         <div className={s.main}>
-          <header className={s.header}>
+          {!(vp.mobile && setupMatch) && <header className={s.header}>
             {!vp.mobile && !vp.sidebar && <IconButton icon="menu" label="Menu" onClick={() => setDrawer((d) => !d)} />}
             {vp.mobile
               ? <Link to="/" className={s.homeLogo} aria-label="Home"><img src="/logomark.svg" alt="" width={24} height={24} /></Link>
@@ -153,7 +153,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 {email && <Icon name="check_circle" size={14} fill color="var(--green-50)" style={{ position: 'absolute', right: -3, bottom: -3, background: 'rgba(255,255,255,.08)', borderRadius: 999 }} />}
               </button>
             )}
-          </header>
+          </header>}
           <main className={s.content}>{children}</main>
           {vp.mobile && <div style={{ flexShrink: 0, height: dockHeight ? dockHeight + 8 : 0 }} />}
         </div>

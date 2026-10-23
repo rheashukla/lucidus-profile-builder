@@ -17,8 +17,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div role="status" aria-live="polite" className="sr-only">{msg}</div>
       {msg && (
         <div aria-hidden="true" style={{
-          position: 'fixed', top: 'var(--toast-top, 76px)', left: '50%', transform: 'translateX(-50%)', zIndex: 30,
-          maxWidth: 'calc(100% - 32px)', width: 'max-content', padding: '10px 18px', borderRadius: 999,
+          position: 'fixed', top: 'var(--toast-top, 76px)', left: 0, right: 0, margin: '0 auto', zIndex: 30,
+          maxWidth: 'calc(100% - 32px)', width: 'fit-content', padding: '10px 18px', borderRadius: 999,
           background: 'var(--purple-80)', color: '#fff', fontSize: 14, fontWeight: 600, textAlign: 'center',
           boxShadow: 'var(--shadow-overlay)', animation: 'pbIn 300ms var(--ease) both',
         }}>{msg}</div>
