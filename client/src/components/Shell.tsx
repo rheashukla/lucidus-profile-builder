@@ -104,7 +104,7 @@ export function Shell({ children }: { children: ReactNode }) {
         ))}
       </div>
       <div style={{ flex: 1 }} />
-      <button type="button" className={s.identity} onClick={() => setModal({ kind: 'save' })} aria-label="Account and saving">
+      <button type="button" className={s.identity} onClick={() => setModal({ kind: 'save' })} aria-label={isCollapsed ? `${initials}: account and saving` : undefined}>
         <span className={s.avatar}>{initials}</span>
         {!isCollapsed && (
           <span className={s.idText}>
@@ -138,11 +138,11 @@ export function Shell({ children }: { children: ReactNode }) {
             {!vp.mobile && !vp.sidebar && <IconButton icon="menu" label="Menu" onClick={() => setDrawer((d) => !d)} />}
             {vp.mobile
               ? <Link to="/" className={s.homeLogo} aria-label="Home"><img src="/logomark.svg" alt="" width={24} height={24} /></Link>
-              : <h2 className={s.pageTitle}>{page.title}</h2>}
+              : <div className={s.pageTitle}>{page.title}</div>}
             {showMobileProj ? (
-              <button type="button" className={s.projSwitch} aria-label="Switch project" onClick={() => setModal({ kind: 'projects' })}>
+              <button type="button" className={s.projSwitch} aria-haspopup="dialog" onClick={() => setModal({ kind: 'projects' })}>
                 <Icon name="folder_open" size={18} color="var(--purple-15)" />
-                <span className={s.projSwitchTitle}>{current!.title}</span>
+                <span className={s.projSwitchTitle}><span className="sr-only">Switch project: </span>{current!.title}</span>
                 <Icon name="unfold_more" size={20} />
               </button>
             ) : <div className={s.spacer} />}
@@ -150,7 +150,7 @@ export function Shell({ children }: { children: ReactNode }) {
               <Button variant="secondary" leadingIcon="mail" onClick={() => setModal({ kind: 'save' })}>Save Progress</Button>
             )}
             {(vp.mobile || !vp.sidebar) && (
-              <button type="button" className={[s.avatar, s.headAvatar].join(' ')} aria-label="Account" onClick={() => setModal({ kind: 'save' })}>
+              <button type="button" className={[s.avatar, s.headAvatar].join(' ')} aria-label={`${initials}: account and saving`} onClick={() => setModal({ kind: 'save' })}>
                 {initials}
                 {email && <Icon name="check_circle" size={14} fill color="var(--green-50)" style={{ position: 'absolute', right: -3, bottom: -3, background: 'rgba(255,255,255,.08)', borderRadius: 999 }} />}
               </button>
@@ -162,7 +162,7 @@ export function Shell({ children }: { children: ReactNode }) {
       </div>
 
       {vp.mobile && (dock || showTabBar) && (
-        <div className={s.dock}>
+        <div className={s.dock} role="region" aria-label="Actions">
           {dock && (
             <div className={s.dockCta}>
               {dock.hint && <span className={s.dockHint}>{dock.hint}</span>}

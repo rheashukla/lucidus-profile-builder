@@ -123,7 +123,7 @@ function Aside({ ps }: { ps: PState }) {
       </div>
       <div className={s.card} style={{ padding: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h3 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Your Progress</h3>
+          <h2 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Your Progress</h2>
           <Link to={`${base}/growth`} className={s.textBtn}>View All</Link>
         </div>
         {[['Checkpoints done', `${ps.doneN} / ${ps.N}`], ['Feedback rated', String(rated)], ['Final review', ps.review ? 'Done' : 'Not yet'], ['XP', String(ps.project.xp)]].map(([k, v]) => (
@@ -132,7 +132,7 @@ function Aside({ ps }: { ps: PState }) {
       </div>
       <div className={s.card} style={{ padding: 20, gap: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-          <h3 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Your Journey</h3>
+          <h2 style={{ margin: 0, fontSize: 17, fontWeight: 600 }}>Your Journey</h2>
           <Link to={`${base}/checkpoints`} className={s.textBtn}>View All</Link>
         </div>
         {journey.map((j, idx) => {

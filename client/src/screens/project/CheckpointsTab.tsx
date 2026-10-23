@@ -44,7 +44,7 @@ export function CheckpointsTab({ ps }: { ps: PState }) {
                 <span className={s.cpEyebrow}>{it.eyebrow}</span>
                 <span className={s.status} style={{ background: S.bg }}><span className={s.statusDot} style={{ background: S.dot }} />{S.label}</span>
               </div>
-              <h3 style={{ margin: 0, fontSize: 20, fontWeight: 600 }}>{it.title}</h3>
+              <h2 style={{ margin: 0, fontSize: 20, fontWeight: 600 }}>{it.title}</h2>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: 'var(--purple-10)' }}>{it.goal}</p>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'var(--purple-15)' }}><Icon name="event" size={16} />Suggested {it.date}</span>
               {it.bring.length > 0 && st !== 'done' && (

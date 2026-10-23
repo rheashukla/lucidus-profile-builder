@@ -14,9 +14,9 @@ export function RubricTab({ ps }: { ps: PState }) {
           <section key={r.criterion} className={[s.card, s.rubricCard].join(' ')} aria-labelledby={`crit-${ci}`}>
             <div className={s.rubricHead}>
               <span className={s.num} aria-hidden="true">{ci + 1}</span>
-              <h3 id={`crit-${ci}`} style={{ flex: 1, margin: 0, fontSize: 20, fontWeight: 600, minWidth: 160 }}>
+              <h2 id={`crit-${ci}`} style={{ flex: 1, margin: 0, fontSize: 20, fontWeight: 600, minWidth: 160 }}>
                 {r.criterion.charAt(0).toUpperCase() + r.criterion.slice(1)}
-              </h3>
+              </h2>
               {cur >= 0 && <LevelChip level={cur as Level} prefix="Now: " />}
             </div>
             <div className={s.levels}>

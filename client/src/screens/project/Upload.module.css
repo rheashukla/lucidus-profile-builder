@@ -13,7 +13,7 @@
 .fileTrack { display: block; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, .12); overflow: hidden; }
 .field { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 18px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .18); }
 .field:focus-within { box-shadow: inset 0 0 0 2px var(--purple-15); }
-.field input { flex: 1; min-width: 0; border: 0; background: transparent; font-size: 16px; outline: none; color: #fff; }
+.field input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; font-size: 16px; outline: none; color: #fff; }
 .note {
   padding: 16px; border-radius: 20px; border: 0; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08);
   font-size: 16px; line-height: 1.55; outline: none; resize: vertical; color: #fff;

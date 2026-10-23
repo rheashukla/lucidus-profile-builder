@@ -23,12 +23,17 @@ export function setClient(c: Anthropic | null | undefined) { client = c; }
  * Runs an AI task with a 60 s timeout, retrying once on API error, timeout or invalid output.
  * Returns null when both attempts fail (the caller then uses fallback content).
  */
-export async function withRetry<T>(label: string, task: (ai: Anthropic, signal: AbortSignal) => Promise<T>): Promise<T | null> {
+export async function withRetry<T>(label: string, task: (ai: Anthropic, signal: AbortSignal) => Promise<T>, timeoutMs = AI_TIMEOUT_MS): Promise<T | null> {
   const ai = getClient();
   if (!ai) return null;
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      return await task(ai, AbortSignal.timeout(AI_TIMEOUT_MS));
+      const signal = AbortSignal.timeout(timeoutMs);
+      // Race the abort too, in case a task ignores its signal.
+      return await Promise.race([
+        task(ai, signal),
+        new Promise<never>((_, reject) => signal.addEventListener('abort', () => reject(new Error(`timed out after ${timeoutMs} ms`)), { once: true })),
+      ]);
     } catch (e) {
       console.warn(`[ai:${label}] attempt ${attempt} failed:`, e instanceof Error ? e.message : e);
     }

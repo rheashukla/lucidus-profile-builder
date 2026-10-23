@@ -221,7 +221,7 @@ function SdgStep({ d, onToggle }: { d: Draft; onToggle: (n: number) => void }) {
         return (
           <button key={n} type="button" aria-pressed={on} className={cx(s.card, on && s.cardOn, !on && d.sdgs.length >= 2 && s.cardDim)}
             style={{ minHeight: 110, gap: 10, padding: 16, borderRadius: 24 }} onClick={() => onToggle(n)}>
-            <span className={s.sdgNum} style={{ background: P.solid, color: P.on, boxShadow: `0 6px 14px -6px ${P.glow}` }}>{n}</span>
+            <span className={s.sdgNum} style={{ background: P.soft, color: P.fg, boxShadow: `0 6px 14px -6px ${P.glow}` }}>{n}</span>
             <span style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.35 }}>{name}</span>
             {on && <Icon name="check_circle" size={22} fill color="var(--green-30)" className={s.check} />}
           </button>
@@ -385,7 +385,7 @@ export function Setup({ onGenerate }: { onGenerate: (d: Draft) => void }) {
           <aside className={s.aside}>
             <div className={s.answers}>
               <div className={s.answersHead}>
-                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Your Answers</h3>
+                <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Your Answers</h2>
                 <span className={s.pct}>{Math.round((step / 7) * 100)}%</span>
               </div>
               {STEPS.map(([label], k) => {

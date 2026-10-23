@@ -12,10 +12,15 @@ import { submissionsRouter } from './routes/submissions';
 
 const app = express();
 const PORT = Number(process.env.PORT || 3001);
+const SECRET = process.env.SESSION_SECRET || 'dev-secret';
+if (process.env.NODE_ENV === 'production' && (SECRET === 'dev-secret' || SECRET === 'change-me')) {
+  throw new Error('Set SESSION_SECRET to a long random value in production.');
+}
 
+app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(express.json({ limit: '1mb' }));
-app.use(cookieParser(process.env.SESSION_SECRET || 'dev-secret'));
+app.use(cookieParser(SECRET));
 
 const api = express.Router();
 api.use(sessionMiddleware);

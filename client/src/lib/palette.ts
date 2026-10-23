@@ -11,7 +11,7 @@ export const PAL = [
 /** Level colours: 0 Beginning … 3 Exemplary. */
 export const LV = [
   { bg: 'var(--orange-5)', fg: 'var(--orange-60)', solid: 'var(--orange-40)', chip: 'var(--orange-10)', light: 'var(--orange-20)' },
-  { bg: 'var(--yellow-10)', fg: 'var(--yellow-80)', solid: 'var(--yellow-50)', chip: 'var(--yellow-20)', light: 'var(--yellow-30)' },
+  { bg: 'var(--yellow-10)', fg: 'var(--orange-70)', solid: 'var(--yellow-50)', chip: 'var(--yellow-20)', light: 'var(--yellow-30)' },
   { bg: 'var(--green-5)', fg: 'var(--green-60)', solid: 'var(--green-40)', chip: 'var(--green-10)', light: 'var(--green-30)' },
   { bg: 'var(--purple-5)', fg: 'var(--purple-60)', solid: 'var(--purple-30)', chip: 'var(--purple-10)', light: 'var(--purple-10)' },
 ];

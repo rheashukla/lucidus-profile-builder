@@ -196,7 +196,7 @@ function UploadForm({ ps }: { ps: PState }) {
       {!vp.mobile && (
         <aside className={s.aside}>
           <div className={s.card} style={{ padding: 22, gap: 14 }}>
-            <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>How Feedback Works</h3>
+            <h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>How Feedback Works</h2>
             {[['checklist', 'Judged against your four rubric criteria.'], ['help', 'Asks questions. It never rewrites your work.'], ['draw', 'Drafts and messy work count. Process matters.'], ['visibility', 'Your note, link and file names are read, plus up to 5 images or PDFs.']].map(([icon, text]) => (
               <span key={icon} style={{ display: 'flex', gap: 12, fontSize: 14, lineHeight: 1.5, color: 'var(--purple-10)' }}><Icon name={icon} size={22} />{text}</span>
             ))}
