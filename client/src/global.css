@@ -58,3 +58,4 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
 }
+@keyframes pbBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }

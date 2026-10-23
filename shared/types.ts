@@ -44,3 +44,15 @@ export interface ProjectSummary {
   done: number; total: number; updatedAt: string;
   weeks: 1 | 2 | 3 | 4; mode: Mode;
 }
+
+// API payloads
+export interface ProjectRow {
+  id: string; userId: string; inputs: Inputs; brief: Brief; status: 'active' | 'complete'; xp: number;
+  createdAt: string; updatedAt: string;
+}
+export interface SubmissionRow {
+  id: string; projectId: string; n: number; note: string; link: string | null; files: FileRef[];
+  feedback: Feedback | null; rating: number | null; createdAt: string;
+}
+export interface DraftRow { projectId: string; n: number; note: string; link: string; files: FileRef[]; updatedAt: string }
+export interface ProjectDetail { project: ProjectRow; submissions: SubmissionRow[]; review: Review | null; drafts: DraftRow[] }
