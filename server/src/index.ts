@@ -6,6 +6,8 @@ import { sessionMiddleware } from './session';
 import { errorHandler } from './http';
 import { meRouter } from './routes/me';
 import { projectsRouter } from './routes/projects';
+import { uploadsRouter } from './routes/uploads';
+import { submissionsRouter } from './routes/submissions';
 
 const app = express();
 const PORT = Number(process.env.PORT || 3001);
@@ -18,6 +20,8 @@ const api = express.Router();
 api.use(sessionMiddleware);
 api.use(meRouter);
 api.use(projectsRouter);
+api.use(uploadsRouter);
+api.use(submissionsRouter);
 api.use((_req, res) => res.status(404).json({ error: 'Not found.' }));
 app.use('/api', api);
 

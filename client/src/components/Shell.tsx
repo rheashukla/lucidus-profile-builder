@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getMe } from '../lib/api';
@@ -43,6 +43,8 @@ export function Shell({ children }: { children: ReactNode }) {
   const [modal, setModal] = useState<ModalKind | null>(null);
   const [collapsed, setCollapsed] = useState(false);
   const [drawer, setDrawer] = useState(false);
+
+  useEffect(() => { window.scrollTo(0, 0); }, [loc.pathname]);
 
   const setPage = useCallback((p: { title: string; dock: DockAction | null }) => setPageState(p), []);
   const api = useMemo(() => ({ setPage, openModal: setModal }), [setPage]);
