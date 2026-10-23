@@ -1,0 +1,46 @@
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 52px; padding: 0 26px; border: 0; border-radius: 48px;
+  font-size: 16px; font-weight: 700; color: #fff; white-space: nowrap; cursor: pointer;
+  text-decoration: none;
+  transition: all 150ms var(--ease);
+}
+.btn:focus-visible { outline: 3px solid var(--purple-15); outline-offset: 3px; }
+.full { width: 100%; }
+.sm { height: 44px; padding: 0 20px; font-size: 15px; }
+
+.primary {
+  background: var(--btn-primary);
+  box-shadow: 0 4px 0 #021a13, 0 8px 16px -6px rgba(0, 0, 0, .5);
+}
+.primary:hover { filter: brightness(1.12); }
+.primary:active { transform: translateY(3px); box-shadow: 0 1px 0 #021a13; }
+
+.secondary {
+  padding: 0 22px;
+  background: linear-gradient(0deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.10) 100%);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--glass-line);
+}
+.secondary:hover { background: rgba(255, 255, 255, .16); }
+.secondary:active { background: rgba(255, 255, 255, .08); transform: translateY(1px); }
+
+.danger { border-radius: 999px; background: var(--red); box-shadow: 0 4px 0 #8f1d1d; }
+.danger:active { transform: translateY(3px); box-shadow: 0 1px 0 #8f1d1d; }
+
+/* Disabled look per README: 50% opacity, not-allowed. Kept clickable via aria-disabled so a tap can explain why. */
+.btn[aria-disabled='true'], .btn:disabled {
+  opacity: .5; cursor: not-allowed; filter: none; transform: none;
+}
+.primary[aria-disabled='true'], .primary:disabled {
+  background: rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .4); box-shadow: none; opacity: 1;
+}
+
+.iconBtn {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 999px; border: 0;
+  background: rgba(255, 255, 255, .1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  color: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background 150ms var(--ease);
+}
+.iconBtn:hover { background: rgba(255, 255, 255, .2); }
+@media (max-width: 819px) { .iconBtn { width: 44px; height: 44px; } }

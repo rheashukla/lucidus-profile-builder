@@ -1,0 +1,223 @@
+/* ─────────────────────────────────────────────────────────────
+ * Lucidus Design System — Colors, Type, Effects
+ * Source of truth: Figma "{Lucidus} MVP" file (May 2026)
+ * ───────────────────────────────────────────────────────────── */
+/* Albert Sans is loaded from Google Fonts in index.html (no local font files). */
+
+
+:root {
+  /* ── Neutrals ─────────────────────────────────────────────── */
+  --black: #000000;
+  --white: #ffffff;
+
+  /* ── Purple — primary brand (deep cosmic violet) ──────────── */
+  --purple-5:  #efeaff;
+  --purple-10: #dcd3ff;
+  --purple-15: #c2b1ff;
+  --purple-20: #a187ff;
+  --purple-30: #7b56ff;   /* Brand purple */
+  --purple-40: #5e35f1;
+  --purple-50: #4823cf;
+  --purple-60: #3618a3;
+  --purple-70: #261172;
+  --purple-80: #130934;   /* Deep space background */
+
+  /* ── Orange — sun, warmth (logo highlight) ────────────────── */
+  --orange-5:  #fff2ea;
+  --orange-10: #ffdfcd;
+  --orange-15: #ffc9ad;
+  --orange-20: #ffb187;
+  --orange-30: #ff9a64;
+  --orange-40: #fe7f3b;
+  --orange-50: #e45f17;
+  --orange-60: #a94915;
+  --orange-70: #75320d;
+  --orange-80: #3f1e0c;
+
+  /* ── Yellow — sunlight, highlights ────────────────────────── */
+  --yellow-5:  #fffdf6;
+  --yellow-10: #fff9e6;
+  --yellow-15: #fff5d4;
+  --yellow-20: #ffeeb6;
+  --yellow-30: #ffe695;
+  --yellow-40: #ffda62;
+  --yellow-50: #ffc815;
+  --yellow-60: #edb500;
+  --yellow-70: #c09300;
+  --yellow-80: #906e00;
+
+  /* ── Green — growth, success, "right" answer ──────────────── */
+  --green-5:  #f0fff7;
+  --green-10: #e0ffef;
+  --green-15: #a6f9e1;
+  --green-20: #87efd0;
+  --green-30: #4ed0aa;
+  --green-40: #24a57f;
+  --green-50: #118a66;
+  --green-60: #066146;
+  --green-70: #034230;
+  --green-80: #042119;
+
+  /* ── Green-Gray — text + neutral surfaces ─────────────────── */
+  --green-gray-5:  #edf7f2;
+  --green-gray-10: #e1ebe6;
+  --green-gray-15: #cdd6d1;
+  --green-gray-20: #b5bdb9;
+  --green-gray-30: #959e99;
+  --green-gray-40: #7d8580;
+  --green-gray-50: #606663;
+  --green-gray-60: #424745;
+  --green-gray-70: #2e3331;
+  --green-gray-80: #1c1f1d;
+
+  /* ── Red — destructive / error ────────────────────────────── */
+  --red: #dc4548;
+
+  /* ── Blue — affinity / signal ─────────────────────────────── */
+  --blue-5:  #f1f4ff;
+  --blue-10: #e3e9ff;
+  --blue-15: #cfd9ff;
+  --blue-20: #aec0ff;
+  --blue-30: #87a1ff;
+  --blue-40: #6385ff;
+  --blue-50: #2e58f0;
+  --blue-60: #183fcb;
+  --blue-70: #0d2c9e;
+  --blue-80: #091955;
+
+  /* ── Lime — affinity / energy ─────────────────────────────── */
+  --lime-5:  #f5fff0;
+  --lime-10: #ebffe0;
+  --lime-15: #c2f9a6;
+  --lime-20: #aaef87;
+  --lime-30: #79d04e;
+  --lime-40: #4fa524;
+  --lime-50: #37880f;
+  --lime-60: #246106;
+  --lime-70: #184203;
+  --lime-80: #0e2104;
+
+  /* ── Semantic — surfaces ──────────────────────────────────── */
+  --bg-base:        var(--white);
+  --bg-cosmic:      var(--purple-80);   /* deep gradient base */
+  --bg-cosmic-2:    var(--purple-60);
+  --bg-card:        var(--white);
+  --bg-elevated:    var(--purple-5);
+  --bg-glass:       rgba(255, 255, 255, 0.05);
+  --bg-glass-hi:    rgba(255, 255, 255, 0.10);
+
+  /* ── Semantic — text ──────────────────────────────────────── */
+  --fg-primary:       var(--green-80);   /* on light */
+  --fg-secondary:     var(--green-gray-50);
+  --fg-muted:         var(--green-gray-40);
+  --fg-on-cosmic:     var(--white);      /* on deep purple */
+  --fg-on-cosmic-2:   var(--purple-15);
+  --fg-on-cosmic-3:   var(--purple-10);
+  --fg-brand:         var(--purple-30);
+  --fg-brand-deep:    var(--purple-40);
+  --fg-success:       var(--green-50);
+  --fg-warning:       var(--orange-50);
+  --fg-error:         var(--red);
+
+  /* ── Semantic — borders ───────────────────────────────────── */
+  --border-soft:      var(--green-gray-15);
+  --border-brand:     var(--purple-30);
+  --border-success:   var(--green-50);
+
+  /* ── Brand gradients ──────────────────────────────────────── */
+  --grad-cosmic:    linear-gradient(180deg, #130934 0%, #371c9a 100%); /* @kind color */
+  --grad-purple:    linear-gradient(180deg, #a187ff 0%, #4823cf 100%); /* @kind color */
+  --grad-green:     linear-gradient(180deg, #c2f9a6 0%, #118a66 100%); /* @kind color */
+  --grad-sunrise:   radial-gradient(circle at 70% 30%, #ffb187 0%, #e45f17 100%); /* @kind color */
+  --grad-sun:       radial-gradient(circle at 70% 20%, #fff5d4 0%, #ffc815 100%); /* @kind color */
+  --grad-aurora:    linear-gradient(90deg, #a187ff 0%, #87efd0 50%, #aaef87 100%); /* @kind color */
+  --grad-badge:     linear-gradient(180deg, #5e35f1 0%, #130934 100%); /* @kind color */
+
+  /* ── Type ─────────────────────────────────────────────────── */
+  --font-sans: "Albert Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fs-h1: 32px;   --fw-h1: 600; /* @kind font */   --lh-h1: 1.4; /* @kind font */
+  --fs-h2: 28px;   --fw-h2: 700; /* @kind font */   --lh-h2: 1.5; /* @kind font */
+  --fs-h3: 20px;   --fw-h3: 700; /* @kind font */   --lh-h3: 1.4; /* @kind font */
+  --fs-h3-sb: 20px; --fw-h3-sb: 600; /* @kind font */
+  --fs-title: 18px; --fw-title: 400; /* @kind font */ --lh-title: 1.5; /* @kind font */
+  --fs-title-sb: 18px; --fw-title-sb: 600; /* @kind font */
+  --fs-body: 16px; --fw-body: 400; /* @kind font */ --lh-body: 1.5; /* @kind font */
+  --fs-body-b: 16px; --fw-body-b: 700; /* @kind font */
+  --fs-body-sb: 16px; --fw-body-sb: 600; /* @kind font */
+  --fs-body-sm: 14px; --fw-body-sm: 400; /* @kind font */ --lh-body-sm: 1.5; /* @kind font */
+  --fs-body-sm-b: 14px; --fw-body-sm-b: 700; /* @kind font */
+  --fs-cap: 12px; --fw-cap: 500; /* @kind font */ --lh-cap: 1.5; /* @kind font */
+  --fs-cap-sb: 12px; --fw-cap-sb: 600; /* @kind font */
+  --fs-cap-xs: 10px; --fw-cap-xs: 700; /* @kind font */ --lh-cap-xs: 1; /* @kind font */
+  --fs-cap-xs-r: 10px; --fw-cap-xs-r: 400; /* @kind font */
+
+  /* ── Spacing scale (4-px base) ────────────────────────────── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+
+  /* ── Radii ────────────────────────────────────────────────── */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 24px;
+  --r-3xl: 32px;
+  --r-pill: 999px;
+
+  /* ── Shadows / effects (from Figma effect styles) ─────────── */
+  --shadow-card:        0 0 8px rgba(0, 0, 0, 0.08);
+  --shadow-mcq:         0 0 8px rgba(0, 0, 0, 0.25);
+  --shadow-cta:         0 0 4px rgba(0, 0, 0, 0.25);
+  --shadow-cta-press:   0 0 2px rgba(0, 0, 0, 0.25);
+  --shadow-cta-hover:   0 0 8px rgba(0, 0, 0, 0.25);
+  --shadow-overlay:     0 0 16px rgba(0, 0, 0, 0.16);
+  --shadow-badge:       0 0 16px rgba(0, 0, 0, 0.4);
+  --shadow-assessment:  0 4px 6.6px rgba(246, 246, 246, 0.29);
+  --blur-glass:         blur(20px); /* @kind other */
+}
+
+/* ── Element defaults ───────────────────────────────────────── */
+html, body {
+  font-family: var(--font-sans);
+  color: var(--fg-primary);
+  background: var(--bg-base);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: var(--lh-h2);
+  margin: 0;
+}
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-h3);
+  line-height: var(--lh-h3);
+  margin: 0;
+}
+p { font-size: var(--fs-body); line-height: var(--lh-body); margin: 0; }
+small { font-size: var(--fs-cap); }
+
+.eyebrow {
+  font-size: var(--fs-cap-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

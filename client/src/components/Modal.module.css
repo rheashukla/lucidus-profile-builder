@@ -1,0 +1,20 @@
+.backdrop {
+  position: fixed; inset: 0; z-index: 20;
+  background: rgba(11, 5, 32, .6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.sheet {
+  position: relative; width: 100%; max-width: 440px; max-height: calc(100vh - 40px); overflow-y: auto;
+  background: var(--card-dark); color: #fff; border-radius: 32px;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, .4);
+  padding: 32px 28px 28px; display: flex; flex-direction: column; gap: 14px;
+  animation: pbIn 300ms var(--ease) both;
+}
+.close { position: absolute; top: 16px; right: 16px; }
+@media (max-width: 819px) {
+  .backdrop { align-items: flex-end; padding: 0; }
+  .sheet {
+    max-width: none; border-radius: 28px 28px 0 0; padding: 28px 20px calc(28px + env(safe-area-inset-bottom));
+    max-height: 90vh; animation: pbUp 320ms var(--ease) both;
+  }
+}
