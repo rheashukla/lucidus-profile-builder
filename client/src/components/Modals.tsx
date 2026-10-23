@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, deleteProject, listProjects } from '../lib/api';
+import { api, deleteProject, getMe, listProjects } from '../lib/api';
 import { Modal, ModalBadge } from './Modal';
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -63,8 +63,12 @@ export function DeleteModal({ id, onClose }: { id: string; onClose: () => void }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function SaveModal({ mode, onClose }: { mode: 'save' | 'return'; onClose: () => void }) {
+export function SaveModal({ mode: initialMode, onClose }: { mode: 'save' | 'return'; onClose: () => void }) {
   const toast = useToast();
+  const qc = useQueryClient();
+  const nav = useNavigate();
+  const { data: me } = useQuery({ queryKey: ['me'], queryFn: getMe });
+  const [mode, setMode] = useState(initialMode);
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const ok = EMAIL_RE.test(email.trim());
@@ -73,7 +77,21 @@ export function SaveModal({ mode, onClose }: { mode: 'save' | 'return'; onClose:
     onSuccess: () => setSent(true),
     onError: () => toast('Could not send the link. Try again.'),
   });
+  const logout = useMutation({
+    mutationFn: () => api('/auth/logout', { method: 'POST' }),
+    onSuccess: () => { qc.clear(); onClose(); nav('/'); toast('Logged out. Sign in again with your email any time.'); },
+  });
   const title = mode === 'return' ? 'Continue On Another Device' : 'Save Your Progress';
+  if (me?.user.email && !sent) {
+    return (
+      <Modal label="You're Signed In" onClose={onClose}>
+        <ModalBadge icon="verified_user" bg="var(--green-10)" color="var(--green-50)" />
+        <h2 style={h2}>You're Signed In</h2>
+        <p style={body}>Your projects are saved to <b style={{ color: '#fff' }}>{me.user.email}</b>. Open a sign-in link on any device to pick up where you left off.</p>
+        <Button variant="secondary" full leadingIcon="logout" disabled={logout.isPending} onClick={() => logout.mutate()}>Log Out</Button>
+      </Modal>
+    );
+  }
   if (sent) {
     return (
       <Modal label="Check Your Inbox" onClose={onClose}>
@@ -96,13 +114,17 @@ export function SaveModal({ mode, onClose }: { mode: 'save' | 'return'; onClose:
           ? "Enter the email you saved your project with. We'll send you a sign-in link."
           : "Your project already saves on this device. Add your email and we'll send a link so you can come back from any device. We only use it for sign-in."}
       </p>
-      <form onSubmit={(e) => { e.preventDefault(); if (!ok) return toast('Enter a valid email address.'); send.mutate(); }}
+      <form noValidate onSubmit={(e) => { e.preventDefault(); if (!ok) return toast('Enter a valid email address.'); send.mutate(); }}
         style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         <label className="sr-only" htmlFor="save-email">Email</label>
         <input id="save-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com"
           style={{ height: 54, padding: '0 20px', borderRadius: 999, border: 0, boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.18)', background: 'rgba(255,255,255,.08)', fontSize: 16, color: '#fff' }} />
         <Button type="submit" full icon="send" softDisabled={!ok || send.isPending}>Send Link</Button>
       </form>
+      <button type="button" onClick={() => setMode(mode === 'save' ? 'return' : 'save')} style={{
+        border: 0, background: 'none', padding: '12px 0', fontSize: 13, fontWeight: 800, letterSpacing: '.1em',
+        textTransform: 'uppercase', color: 'var(--green-30)', cursor: 'pointer', alignSelf: 'center', minHeight: 44,
+      }}>{mode === 'save' ? 'Already Saved? Sign In' : 'Save This Device Instead'}</button>
     </Modal>
   );
 }

@@ -4,6 +4,8 @@ import type { Brief, Feedback, FileRef, Inputs, Review } from '@shared/types';
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   email: text('email').unique(),
+  // Set when an anonymous user's projects were merged into a signed-in user; their uploads stay readable.
+  mergedInto: uuid('merged_into'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 

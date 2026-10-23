@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import type { ProjectSummary } from '@shared/types';
 import { Button, IconButton } from '../components/Button';
 import { Icon } from '../components/Icon';
 import { usePage, useShell } from '../components/ShellContext';
 import { useCurrentProject } from '../lib/useCurrentProject';
+import { getMe } from '../lib/api';
+import { useToast } from '../components/Toast';
 import { useViewport } from '../lib/useViewport';
 import s from './Hub.module.css';
 
@@ -68,7 +72,32 @@ function ProjectCard({ p, open }: { p: ProjectSummary; open: boolean }) {
   );
 }
 
+const SIGNIN_MSG: Record<string, string> = {
+  ok: 'Saved. You can sign in from any device for 90 days.',
+  used: 'That link was already used. Send yourself a new one.',
+  expired: 'That link expired. Send yourself a new one.',
+  invalid: "That link didn't work. Send yourself a new one.",
+};
+
+/** Shows the result of a magic-link sign-in (the server redirects to /?signin=…). */
+function useSignInResult() {
+  const [params, setParams] = useSearchParams();
+  const qc = useQueryClient();
+  const toast = useToast();
+  useEffect(() => {
+    const r = params.get('signin');
+    if (!r) return;
+    const merged = Number(params.get('merged') || 0);
+    toast(r === 'ok' && merged ? `Welcome back. ${merged} project${merged > 1 ? 's were' : ' was'} added to your account.` : SIGNIN_MSG[r] || SIGNIN_MSG.invalid);
+    qc.invalidateQueries();
+    setParams({}, { replace: true });
+  }, [params]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
 export function Hub() {
+  useSignInResult();
+  const { openModal } = useShell();
+  const { data: me } = useQuery({ queryKey: ['me'], queryFn: getMe });
   const nav = useNavigate();
   const vp = useViewport();
   const { projects, current } = useCurrentProject();
@@ -94,11 +123,12 @@ export function Hub() {
             <span className={s.chip}><Icon name="tune" size={18} />3 guidance modes</span>
           </div>
           <p className={s.guide}>{guide}</p>
-          {!vp.mobile && (
-            <div className={s.ctaRow}>
-              <Button icon="arrow_forward" onClick={cta.onClick}>{cta.label}</Button>
-            </div>
-          )}
+          <div className={s.ctaRow}>
+            {!vp.mobile && <Button icon="arrow_forward" onClick={cta.onClick}>{cta.label}</Button>}
+            {me && !me.user.email && (
+              <button type="button" className={s.textLink} onClick={() => openModal({ kind: 'return' })}>Continue On Another Device</button>
+            )}
+          </div>
         </div>
 
         {has && (

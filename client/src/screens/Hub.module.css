@@ -95,3 +95,8 @@
   .page { padding: 16px 16px 24px; gap: 20px; }
   .hero { padding: 28px 22px; }
 }
+.textLink {
+  display: inline-flex; align-items: center; min-height: 44px; border: 0; background: none; padding: 0 4px; cursor: pointer;
+  font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--green-30);
+}
+.textLink:hover { color: var(--green-20); }

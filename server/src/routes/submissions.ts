@@ -10,6 +10,7 @@ import { aiLimiter } from '../rateLimit';
 import { generateFeedback, generateReview } from '../ai/feedback';
 import { getOwnedProject, XP } from './projects';
 import { MAX_FILES } from './uploads';
+import { fileOwnerIds } from './auth';
 
 export const submissionsRouter = Router();
 
@@ -36,9 +37,12 @@ const draftSchema = z.object({
   files: z.array(fileRef).max(MAX_FILES).default([]),
 });
 
-/** Uploaded files are keyed under the uploader's user id; refuse anyone else's. */
-function assertOwnFiles(userId: string, files: FileRef[]) {
-  if (files.some((f) => !f.key.startsWith(`${userId}/`) || f.key.includes('..'))) throw new HttpError(400, 'Unknown file.');
+/** Uploaded files are keyed under the uploader's user id (or an anonymous user merged into it); refuse anyone else's. */
+async function assertOwnFiles(userId: string, files: FileRef[]) {
+  if (!files.length) return;
+  const owners = await fileOwnerIds(userId);
+  const ok = (k: string) => !k.includes('..') && owners.some((o) => k.startsWith(`${o}/`));
+  if (!files.every((f) => ok(f.key))) throw new HttpError(400, 'Unknown file.');
 }
 
 submissionsRouter.put('/projects/:id/draft/:n', handle(async (req, res) => {
@@ -46,7 +50,7 @@ submissionsRouter.put('/projects/:id/draft/:n', handle(async (req, res) => {
   const n = Number(req.params.n);
   if (!Number.isInteger(n) || n < 0 || n > checkpointCount(project.inputs.weeks)) throw new HttpError(400, 'Bad checkpoint.');
   const d = parseBody(draftSchema, req.body);
-  assertOwnFiles(req.userId, d.files);
+  await assertOwnFiles(req.userId, d.files);
   const [row] = await db.insert(schema.drafts).values({ projectId: project.id, n, ...d, updatedAt: new Date() })
     .onConflictDoUpdate({ target: [schema.drafts.projectId, schema.drafts.n], set: { ...d, updatedAt: new Date() } })
     .returning();
@@ -56,7 +60,7 @@ submissionsRouter.put('/projects/:id/draft/:n', handle(async (req, res) => {
 submissionsRouter.post('/projects/:id/submissions', aiLimiter, handle(async (req, res) => {
   const project = await getOwnedProject(req.userId, parseId(req.params.id));
   const body = parseBody(submissionSchema, req.body);
-  assertOwnFiles(req.userId, body.files);
+  await assertOwnFiles(req.userId, body.files);
 
   const N = checkpointCount(project.inputs.weeks);
   const subs = await db.select().from(schema.submissions).where(eq(schema.submissions.projectId, project.id));
